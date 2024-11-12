@@ -25,11 +25,9 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),)
                 : ProductLists( state: ProductLoadedState(state.products),);
           }
-          return Container(
-            width: 200,
-            height: 200,
-            color: Colors.blue,
-          );
+          else{
+            return const Center(child: Text("Error!"),);
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {

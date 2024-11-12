@@ -11,4 +11,5 @@ final class ProductLoadedState extends ProductState {
   ProductLoadedState(this.products);
 }
 
-final class ProductErrorState extends ProductState {}
+final class ProductErrorState extends ProductState {
+}
