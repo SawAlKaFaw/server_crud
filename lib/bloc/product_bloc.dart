@@ -15,10 +15,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     //For user create a product item when add icon click and save button
     on<ProductCreateEvent>((event, emit) async{
       try {
-        emit(ProductLoadingState());
         await _apiService.createProduct(event.product);
         var products = await _apiService.getAllProducts();
         emit(ProductLoadedState(products));
+        Fluttertoast.showToast(msg: "Product create successful");
       }
       catch(e){
         emit(ProductErrorState(e.toString()));
