@@ -14,37 +14,55 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
     //For user create a product item when add icon click and save button
     on<ProductCreateEvent>((event, emit) async{
-      emit(ProductLoadingState());
-      await _apiService.createProduct(event.product);
-      var products = await _apiService.getAllProducts();
-      emit(ProductLoadedState(products));
+      try {
+        emit(ProductLoadingState());
+        await _apiService.createProduct(event.product);
+        var products = await _apiService.getAllProducts();
+        emit(ProductLoadedState(products));
+      }
+      catch(e){
+        emit(ProductErrorState(e.toString()));
+      }
+
     });
 
     //Fetch all products when open the app from api
     on<ProductFetchEvent>((event, emit) async {
-      emit(ProductLoadingState());
-      var products =await _apiService.getAllProducts();
-      emit(ProductLoadedState(products));
+      try {
+        emit(ProductLoadingState());
+        var products = await _apiService.getAllProducts();
+        emit(ProductLoadedState(products));
+      }catch(e){
+        emit(ProductErrorState(e.toString()));
+      }
 
     });
 
     //User click edit icon and update new data
     on<ProductUpdateEvent>((event, emit) async{
-      emit(ProductLoadingState());
-      await _apiService.updateProduct(event.id, event.product);
-      var products = await _apiService.getAllProducts();
-      emit(ProductLoadedState(products));
-      Fluttertoast.showToast(msg: "Update successful");
+      try {
+        emit(ProductLoadingState());
+        await _apiService.updateProduct(event.id, event.product);
+        var products = await _apiService.getAllProducts();
+        emit(ProductLoadedState(products));
+        Fluttertoast.showToast(msg: "Update successful");
+      }catch(e){
+        emit(ProductErrorState(e.toString()));
+      }
 
     });
 
     //User delete product item by clicking delete icon
     on<ProductDeleteEvent>((event, emit)async {
-      emit(ProductLoadingState());
-      await _apiService.deleteProduct(event.id);
-      var products =await _apiService.getAllProducts();
-      emit(ProductLoadedState(products));
-      Fluttertoast.showToast(msg: "Delete successful");
+      try {
+        emit(ProductLoadingState());
+        await _apiService.deleteProduct(event.id);
+        var products = await _apiService.getAllProducts();
+        emit(ProductLoadedState(products));
+        Fluttertoast.showToast(msg: "Delete successful");
+      }catch(e){
+        emit(ProductErrorState(e.toString()));
+      }
     });
   }
 }

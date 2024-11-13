@@ -24,9 +24,11 @@ class HomeScreen extends StatelessWidget {
               "No Product",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),)
                 : ProductLists( state: ProductLoadedState(state.products),);
+          }else if(state is ProductErrorState){
+            return Center(child: Text("Error is ${state.error}"),);
           }
           else{
-            return const Center(child: Text("Error!"),);
+            return const Center(child: Text("Check you connection or something went wrongs"),);
           }
         },
       ),
